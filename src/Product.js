@@ -1,7 +1,7 @@
 import React from "react";
 import { BsFillArchiveFill } from 'react-icons/bs';
 let iconStyles = { color: "Red", fontSize: "1em" };
-class Invoice extends React.Component {
+class Product extends React.Component {
 
   constructor(props) {
     super(props);
@@ -11,16 +11,20 @@ class Invoice extends React.Component {
     this.state.products = [
       {
         id: 1,
-        total: '100000',
-        qty:'2',
+        category: '8GB RAM 5TH GENERATION',
         price: '50000',
         name: 'DELL LAPTOP'
       }, {
-        total: '40000',
-        qty:'1',
-        price: '40000',
+        id: 2,
+        category: '8GB RAM 5TH GENERATION',
+        price: '30000',
         name: 'HP LAPTOP'
-      },
+      }, {
+        id: 3,
+        category: '4GB RAM 5TH GENERATION',
+        price: '70000',
+        name: 'LENOVO LAPTOP'
+      }
     ];
 
   }
@@ -37,8 +41,7 @@ class Invoice extends React.Component {
       id: id,
       name: "",
       price: "",
-      total: "",
-      qty: "",
+      category: "",
     }
     this.state.products.push(product);
     this.setState(this.state.products);
@@ -91,15 +94,14 @@ class ProductTable extends React.Component {
     });
     return (
       <div class="container">
-<h1 class="heading">Invoice</h1>
+<h1 class="heading">Product Details</h1>
      
         <table className="table table-bordered">
           <thead>
             <tr>
               <th class="text-center">Product Name</th>
-              <th class="text-center">Qty</th>
+              <th class="text-center">Description</th>
               <th class="text-center">Price</th>
-              <th class="text-center">Total</th>
               <th class="text-center">Remove Item</th>
             </tr>
           </thead>
@@ -131,24 +133,17 @@ class ProductRow extends React.Component {
           value: this.props.product.name,
           id: this.props.product.id
         }}/>
-
-<EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-          "type": "qty",
-          value: this.props.product.qty,
+        
+        <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
+          type: "category",
+          value: this.props.product.category,
           id: this.props.product.id
         }}/>
-
-<EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
+        <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
           type: "price",
           value: this.props.product.price,
           id: this.props.product.id
         }}/>
-        <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-          type: "total",
-          value: this.props.product.total,
-          id: this.props.product.id
-        }}/>
-     
         <td className="del-cell" class="text-center">
       <BsFillArchiveFill style={iconStyles} onClick={this.onDelEvent.bind(this)}/>
         </td>
@@ -163,11 +158,11 @@ class EditableCell extends React.Component {
   render() {
     return (
       <td class="text-center editcell">
-        <input type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate} class="form-control"/>
+        <input type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate} />
       </td>
     );
 
   }
 
 }
-export default Invoice;
+export default Product;
