@@ -1,5 +1,6 @@
 import React from "react";
 import { BsFillArchiveFill } from 'react-icons/bs';
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 let iconStyles = { color: "Red", fontSize: "1em" };
 class Product extends React.Component {
 
@@ -11,17 +12,14 @@ class Product extends React.Component {
     this.state.products = [
       {
         id: 1,
-        category: '8GB RAM 5TH GENERATION',
         price: '50000',
         name: 'DELL LAPTOP'
       }, {
         id: 2,
-        category: '8GB RAM 5TH GENERATION',
         price: '30000',
         name: 'HP LAPTOP'
       }, {
         id: 3,
-        category: '4GB RAM 5TH GENERATION',
         price: '70000',
         name: 'LENOVO LAPTOP'
       }
@@ -41,7 +39,6 @@ class Product extends React.Component {
       id: id,
       name: "",
       price: "",
-      category: "",
     }
     this.state.products.push(product);
     this.setState(this.state.products);
@@ -100,7 +97,6 @@ class ProductTable extends React.Component {
           <thead>
             <tr>
               <th class="text-center">Product Name</th>
-              <th class="text-center">Description</th>
               <th class="text-center">Price</th>
               <th class="text-center">Remove Item</th>
             </tr>
@@ -110,7 +106,9 @@ class ProductTable extends React.Component {
             {product}
           </tbody>
         </table>
-        <button type="button" onClick={this.props.onRowAdd} className="btn btn-success">Add Product</button>
+        <Link to="/product-add">
+        <button type="button" className="btn btn-success">Add Product</button>
+        </Link>
       </div>
     );
 
@@ -134,11 +132,6 @@ class ProductRow extends React.Component {
           id: this.props.product.id
         }}/>
         
-        <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-          type: "category",
-          value: this.props.product.category,
-          id: this.props.product.id
-        }}/>
         <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
           type: "price",
           value: this.props.product.price,

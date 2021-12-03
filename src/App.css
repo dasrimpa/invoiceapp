@@ -6,3 +6,10 @@ width: 220px;
 border: none;
 box-shadow: none;
 }
+.customer-form{
+  width: 400px;
+}
+.form-container{
+ justify-content: center;
+ display: flex;
+}

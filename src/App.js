@@ -2,8 +2,13 @@ import React from "react";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import './App.css';
 import Invoice from "./Invoice";
+import InvoiceForm from "./pages/InvoiceForm";
 import Product from "./Product";
+import ProductForm from "./pages/ProductForm";
 import Customer from "./Customer";
+import CustomerForm from "./pages/CustomerForm";
+
+
 
 
 export default function App() {
@@ -33,8 +38,11 @@ export default function App() {
 
           <Routes>
             <Route path="/invoice" element={<Invoice />} />
+            <Route path="/invoice-add" element={<InvoiceForm />} />
             <Route path="/" element={<Product />} />
+            <Route path="/product-add" element={<ProductForm />} />
             <Route path="/customer" element={<Customer />} />
+            <Route path="/customer-add" element={<CustomerForm />} />
           </Routes>
         </div>
     </BrowserRouter>

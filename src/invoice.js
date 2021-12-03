@@ -1,5 +1,6 @@
 import React from "react";
 import { BsFillArchiveFill } from 'react-icons/bs';
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 let iconStyles = { color: "Red", fontSize: "1em" };
 class Invoice extends React.Component {
 
@@ -12,14 +13,14 @@ class Invoice extends React.Component {
       {
         id: 1,
         total: '100000',
-        qty:'2',
-        price: '50000',
-        name: 'DELL LAPTOP'
+        num:'1120',
+        price: '20%',
+        name: '101'
       }, {
         total: '40000',
-        qty:'1',
-        price: '40000',
-        name: 'HP LAPTOP'
+        num:'1210',
+        price: '10%',
+        name: '102'
       },
     ];
 
@@ -38,7 +39,7 @@ class Invoice extends React.Component {
       name: "",
       price: "",
       total: "",
-      qty: "",
+      num: "",
     }
     this.state.products.push(product);
     this.setState(this.state.products);
@@ -96,9 +97,9 @@ class ProductTable extends React.Component {
         <table className="table table-bordered">
           <thead>
             <tr>
-              <th class="text-center">Product Name</th>
-              <th class="text-center">Qty</th>
-              <th class="text-center">Price</th>
+            <th class="text-center">ID</th>
+              <th class="text-center">Customer ID</th>
+              <th class="text-center">Discount</th>
               <th class="text-center">Total</th>
               <th class="text-center">Remove Item</th>
             </tr>
@@ -108,7 +109,9 @@ class ProductTable extends React.Component {
             {product}
           </tbody>
         </table>
-        <button type="button" onClick={this.props.onRowAdd} className="btn btn-success">Add Product</button>
+        <Link to="/invoice-add">
+        <button type="button" className="btn btn-success">Add New</button>
+        </Link>
       </div>
     );
 
@@ -126,15 +129,14 @@ class ProductRow extends React.Component {
     return (
       
       <tr className="eachRow">
+       <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
+          "type": "num",
+          value: this.props.product.num,
+          id: this.props.product.id
+        }}/>
         <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
           "type": "name",
           value: this.props.product.name,
-          id: this.props.product.id
-        }}/>
-
-<EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-          "type": "qty",
-          value: this.props.product.qty,
           id: this.props.product.id
         }}/>
 
@@ -143,6 +145,8 @@ class ProductRow extends React.Component {
           value: this.props.product.price,
           id: this.props.product.id
         }}/>
+
+
         <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
           type: "total",
           value: this.props.product.total,

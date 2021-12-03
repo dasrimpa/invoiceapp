@@ -1,5 +1,6 @@
 import React from "react";
 import { BsFillArchiveFill } from 'react-icons/bs';
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 let iconStyles = { color: "Red", fontSize: "1em" };
 class Customer extends React.Component {
 
@@ -13,17 +14,20 @@ class Customer extends React.Component {
         id: 1,
         category: 'HOWRAH',
         price: '7898767898',
-        name: 'RIMPA DAS'
+        name: 'RIMPA DAS',
+        num:'1001'
       }, {
         id: 2,
         category: 'KOLKATA',
         price: '9867543567',
-        name: 'DEBJIT DAS'
+        name: 'DEBJIT DAS',
+        num:'1010'
       }, {
         id: 3,
         category: 'MANDIRTOLA',
         price: '7076476567',
-        name: 'RIM DAS'
+        name: 'RIM DAS',
+        num:'1034'
       }
     ];
 
@@ -42,6 +46,7 @@ class Customer extends React.Component {
       name: "",
       price: "",
       category: "",
+      num:"",
     }
     this.state.products.push(product);
     this.setState(this.state.products);
@@ -99,6 +104,7 @@ class ProductTable extends React.Component {
         <table className="table table-bordered">
           <thead>
             <tr>
+            <th class="text-center">ID</th>
               <th class="text-center">Customer Name</th>
               <th class="text-center">Address</th>
               <th class="text-center">Contact No</th>
@@ -110,7 +116,9 @@ class ProductTable extends React.Component {
             {product}
           </tbody>
         </table>
-        <button type="button" onClick={this.props.onRowAdd} className="btn btn-success">Add Product</button>
+        <Link to="/customer-add">
+        <button type="button"  className="btn btn-success">Add Customer</button>
+        </Link>
       </div>
     );
 
@@ -128,6 +136,11 @@ class ProductRow extends React.Component {
     return (
       
       <tr className="eachRow">
+       <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
+          "type": "num",
+          value: this.props.product.num,
+          id: this.props.product.id
+        }}/>
         <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
           "type": "name",
           value: this.props.product.name,
