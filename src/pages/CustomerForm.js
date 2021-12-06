@@ -36,31 +36,20 @@ class CustomerForm extends React.Component {
       <div class="form-container">
         <form onSubmit={this.handleSubmit} >
           <div className="form-group">
-            <label for="id">ID</label>
-            <input type="text" name="id" value={this.state.id} onChange={this.handleChange} class="form-control customer-form" placeholder="Enter ID" />
-          </div>
-          <div className="form-group">
             <label for="name">Customer Name</label>
-            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} class="form-control" placeholder="Enter Name" />
+            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} class="form-control" placeholder="Enter Customer Name" required/>
           </div>
           <div className="form-group">
             <label for="address">Address</label>
-            <input name="address" type="text" value={this.state.address} onChange={this.handleChange} class="form-control" placeholder="Enter Address" />
+            <input name="address" type="text" value={this.state.address} onChange={this.handleChange} class="form-control" placeholder="Enter Address" required/>
           </div>
           <div className="form-group">
             <label for="contactno">Contact No</label>
-            <input name="phone" type="text" value={this.state.phone} onChange={this.handleChange} class="form-control"  placeholder="Enter Contact No" />
+            <input name="phone" type="text" value={this.state.phone} onChange={this.handleChange} class="form-control"  placeholder="Enter Contact No" required/>
           </div>
           <input type="submit" value="Add Customer" className="btn btn-primary" />
         </form>
       </div>
-    )
-  }
-}
-class Title extends React.Component {
-  render(){
-    return(
-      <div className="Title"><h1>Customer</h1></div>
     )
   }
 }
@@ -69,7 +58,6 @@ class App extends React.Component {
   render(){
     return(
       <div>
-      <Title/>
         <CustomerForm/>
       </div>
     )

@@ -11,15 +11,14 @@ class Invoice extends React.Component {
     this.state.filterText = "";
     this.state.products = [
       {
-        id: 1,
         total: '100000',
-        num:'1120',
-        price: '20%',
+        invoiceid:'1120',
+        discount: '20%',
         name: '101'
       }, {
         total: '40000',
-        num:'1210',
-        price: '10%',
+        invoiceid:'1210',
+        discount: '10%',
         name: '102'
       },
     ];
@@ -35,11 +34,10 @@ class Invoice extends React.Component {
   handleAddEvent(evt) {
     var id = (+ new Date() + Math.floor(Math.random() * 999999)).toString(36);
     var product = {
-      id: id,
       name: "",
-      price: "",
+      invoiceid: "",
       total: "",
-      num: "",
+      discount: "",
     }
     this.state.products.push(product);
     this.setState(this.state.products);
@@ -92,7 +90,7 @@ class ProductTable extends React.Component {
     });
     return (
       <div class="container">
-<h1 class="heading">Invoice</h1>
+<h1 class="heading">Invoice List</h1>
      
         <table className="table table-bordered">
           <thead>
@@ -110,8 +108,9 @@ class ProductTable extends React.Component {
           </tbody>
         </table>
         <Link to="/invoice-add">
-        <button type="button" className="btn btn-success">Add New</button>
+        <button type="button" className="btn btn-success">Create New Invoice</button>
         </Link>
+        <button type="button" class="btn btn-success add">Edit Invoice</button>
       </div>
     );
 
@@ -122,6 +121,7 @@ class ProductTable extends React.Component {
 class ProductRow extends React.Component {
   onDelEvent() {
     this.props.onDelEvent(this.props.product);
+    alert('Product Deleted Successful');
 
   }
   render() {
@@ -130,8 +130,8 @@ class ProductRow extends React.Component {
       
       <tr className="eachRow">
        <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-          "type": "num",
-          value: this.props.product.num,
+          "type": "invoiceid",
+          value: this.props.product.invoiceid,
           id: this.props.product.id
         }}/>
         <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
@@ -141,8 +141,8 @@ class ProductRow extends React.Component {
         }}/>
 
 <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-          type: "price",
-          value: this.props.product.price,
+          type: "discount",
+          value: this.props.product.discount,
           id: this.props.product.id
         }}/>
 

@@ -5,8 +5,7 @@ class ProductForm extends React.Component {
     this.state = {
       id:'',
       name: '',
-      address:'',
-      phone:''
+      price:'',
     };
 
     this.handleChange = this.handleInputChange.bind(this);
@@ -25,7 +24,7 @@ class ProductForm extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('Customer Added Successful');
+    alert('Product Added Successful');
     event.preventDefault();
   }
 
@@ -36,31 +35,16 @@ class ProductForm extends React.Component {
       <div class="form-container">
         <form onSubmit={this.handleSubmit} >
           <div className="form-group">
-            <label for="id">ID</label>
-            <input type="text" name="id" value={this.state.id} onChange={this.handleChange} class="form-control customer-form" placeholder="Enter ID" />
+            <label for="name">Product Name</label>
+            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} class="form-control" placeholder="Enter Product Name" required />
           </div>
           <div className="form-group">
-            <label for="name">Customer Name</label>
-            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} class="form-control" placeholder="Enter Name" />
+            <label for="price">Price</label>
+            <input name="price" type="text" value={this.state.address} onChange={this.handleChange} class="form-control" placeholder="Enter Product Price" required/>
           </div>
-          <div className="form-group">
-            <label for="address">Address</label>
-            <input name="address" type="text" value={this.state.address} onChange={this.handleChange} class="form-control" placeholder="Enter Address" />
-          </div>
-          <div className="form-group">
-            <label for="contactno">Contact No</label>
-            <input name="phone" type="text" value={this.state.phone} onChange={this.handleChange} class="form-control"  placeholder="Enter Contact No" />
-          </div>
-          <input type="submit" value="Add Customer" className="btn btn-primary" />
+          <input type="submit" value="Add Product" className="btn btn-primary" />
         </form>
       </div>
-    )
-  }
-}
-class Title extends React.Component {
-  render(){
-    return(
-      <div className="Title"><h1>Customer</h1></div>
     )
   }
 }
@@ -69,7 +53,6 @@ class App extends React.Component {
   render(){
     return(
       <div>
-      <Title/>
         <ProductForm/>
       </div>
     )

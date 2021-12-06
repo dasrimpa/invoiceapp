@@ -11,17 +11,17 @@ class Product extends React.Component {
     this.state.filterText = "";
     this.state.products = [
       {
-        id: 1,
         price: '50000',
-        name: 'DELL LAPTOP'
+        name: 'DELL LAPTOP',
+        productid: '123'
       }, {
-        id: 2,
         price: '30000',
-        name: 'HP LAPTOP'
+        name: 'HP LAPTOP',
+        productid: '124'
       }, {
-        id: 3,
         price: '70000',
-        name: 'LENOVO LAPTOP'
+        name: 'LENOVO LAPTOP',
+        productid: '125',
       }
     ];
 
@@ -36,13 +36,17 @@ class Product extends React.Component {
   handleAddEvent(evt) {
     var id = (+ new Date() + Math.floor(Math.random() * 999999)).toString(36);
     var product = {
-      id: id,
       name: "",
       price: "",
+      productid:"",
     }
     this.state.products.push(product);
     this.setState(this.state.products);
 
+  }
+  handleSubmit(event) {
+    alert('Product Deleted');
+    event.preventDefault();
   }
 
   handleProductTable(evt) {
@@ -65,6 +69,13 @@ var products = this.state.products.slice();
   });
     this.setState({products:newProducts});
   };
+
+  togglePopup() {
+    this.setState(prevState => ({
+      isPopupShown: !prevState.isPopupShown
+    }));
+  }
+  
   render() {
    
     return (
@@ -91,11 +102,12 @@ class ProductTable extends React.Component {
     });
     return (
       <div class="container">
-<h1 class="heading">Product Details</h1>
+<h1 class="heading">Product List</h1>
      
         <table className="table table-bordered">
           <thead>
             <tr>
+            <th class="text-center">ID</th>
               <th class="text-center">Product Name</th>
               <th class="text-center">Price</th>
               <th class="text-center">Remove Item</th>
@@ -109,6 +121,9 @@ class ProductTable extends React.Component {
         <Link to="/product-add">
         <button type="button" className="btn btn-success">Add Product</button>
         </Link>
+        <Link to="/product-edit">
+        <button type="button" class="btn btn-success add">Edit Product</button>
+        </Link>
       </div>
     );
 
@@ -119,6 +134,7 @@ class ProductTable extends React.Component {
 class ProductRow extends React.Component {
   onDelEvent() {
     this.props.onDelEvent(this.props.product);
+    alert('Product Deleted Successful');
 
   }
   render() {
@@ -126,6 +142,11 @@ class ProductRow extends React.Component {
     return (
       
       <tr className="eachRow">
+        <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
+          "type": "productid",
+          value: this.props.product.productid,
+          id: this.props.product.id
+        }}/>
         <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
           "type": "name",
           value: this.props.product.name,
@@ -137,8 +158,8 @@ class ProductRow extends React.Component {
           value: this.props.product.price,
           id: this.props.product.id
         }}/>
-        <td className="del-cell" class="text-center">
-      <BsFillArchiveFill style={iconStyles} onClick={this.onDelEvent.bind(this)}/>
+        <td className="del-cell" class="text-center" >
+      <BsFillArchiveFill style={iconStyles} onClick={this.onDelEvent.bind(this)} />
         </td>
       </tr>
     );
