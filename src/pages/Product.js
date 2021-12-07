@@ -1,8 +1,9 @@
 import React from "react";
 import { BsFillArchiveFill } from 'react-icons/bs';
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-let iconStyles = { color: "Red", fontSize: "1em" };
-class Invoice extends React.Component {
+import {FaUserEdit} from 'react-icons/fa';
+import {Link } from "react-router-dom";
+
+class Product extends React.Component {
 
   constructor(props) {
     super(props);
@@ -11,16 +12,18 @@ class Invoice extends React.Component {
     this.state.filterText = "";
     this.state.products = [
       {
-        total: '100000',
-        invoiceid:'1120',
-        discount: '20%',
-        name: '101'
+        price: '50000',
+        name: 'DELL LAPTOP',
+        productid: '123'
       }, {
-        total: '40000',
-        invoiceid:'1210',
-        discount: '10%',
-        name: '102'
-      },
+        price: '30000',
+        name: 'HP LAPTOP',
+        productid: '124'
+      }, {
+        price: '70000',
+        name: 'LENOVO LAPTOP',
+        productid: '125',
+      }
     ];
 
   }
@@ -35,13 +38,16 @@ class Invoice extends React.Component {
     var id = (+ new Date() + Math.floor(Math.random() * 999999)).toString(36);
     var product = {
       name: "",
-      invoiceid: "",
-      total: "",
-      discount: "",
+      price: "",
+      productid:"",
     }
     this.state.products.push(product);
     this.setState(this.state.products);
 
+  }
+  handleSubmit(event) {
+    alert('Product Added Successful');
+    event.preventDefault();
   }
 
   handleProductTable(evt) {
@@ -64,6 +70,7 @@ var products = this.state.products.slice();
   });
     this.setState({products:newProducts});
   };
+  
   render() {
    
     return (
@@ -90,15 +97,15 @@ class ProductTable extends React.Component {
     });
     return (
       <div class="container">
-<h1 class="heading">Invoice List</h1>
+<h1 class="heading">Product List</h1>
      
         <table className="table table-bordered">
           <thead>
             <tr>
             <th class="text-center">ID</th>
-              <th class="text-center">Customer ID</th>
-              <th class="text-center">Discount</th>
-              <th class="text-center">Total</th>
+              <th class="text-center">Product Name</th>
+              <th class="text-center">Price</th>
+              <th class="text-center">Edit Item</th>
               <th class="text-center">Remove Item</th>
             </tr>
           </thead>
@@ -107,10 +114,9 @@ class ProductTable extends React.Component {
             {product}
           </tbody>
         </table>
-        <Link to="/invoice-add">
-        <button type="button" className="btn btn-success">Create New Invoice</button>
+        <Link to="/product-add">
+        <button type="button" className="btn btn-success">Add Product</button>
         </Link>
-        <button type="button" class="btn btn-success add">Edit Invoice</button>
       </div>
     );
 
@@ -121,7 +127,7 @@ class ProductTable extends React.Component {
 class ProductRow extends React.Component {
   onDelEvent() {
     this.props.onDelEvent(this.props.product);
-    alert('Product Deleted Successful');
+    alert('Product Deleted');
 
   }
   render() {
@@ -129,9 +135,9 @@ class ProductRow extends React.Component {
     return (
       
       <tr className="eachRow">
-       <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-          "type": "invoiceid",
-          value: this.props.product.invoiceid,
+        <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
+          "type": "productid",
+          value: this.props.product.productid,
           id: this.props.product.id
         }}/>
         <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
@@ -139,22 +145,22 @@ class ProductRow extends React.Component {
           value: this.props.product.name,
           id: this.props.product.id
         }}/>
-
-<EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-          type: "discount",
-          value: this.props.product.discount,
-          id: this.props.product.id
-        }}/>
-
-
+        
         <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-          type: "total",
-          value: this.props.product.total,
+          type: "price",
+          value: this.props.product.price,
           id: this.props.product.id
         }}/>
-     
-        <td className="del-cell" class="text-center">
-      <BsFillArchiveFill style={iconStyles} onClick={this.onDelEvent.bind(this)}/>
+      
+      
+        <td className="del-cell" class="text-center edit-btn" >
+        <Link to="/product-edit">
+      <FaUserEdit />
+      </Link>
+        </td>
+       
+        <td className="del-cell" class="text-center" >
+      <BsFillArchiveFill class="delete-btn" onClick={this.onDelEvent.bind(this)} />
         </td>
       </tr>
     );
@@ -167,11 +173,11 @@ class EditableCell extends React.Component {
   render() {
     return (
       <td class="text-center editcell">
-        <input type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate} class="form-control"/>
+        <input type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate} />
       </td>
     );
 
   }
 
 }
-export default Invoice;
+export default Product;

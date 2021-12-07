@@ -20,3 +20,11 @@ button.add{
 button.invoiceadd{
   margin-left: 300px;
 }
+.edit-btn{
+  justify-content: center;
+  display: flex;
+}
+.delete-btn{
+  font-size: 1em;
+  color: red;
+}

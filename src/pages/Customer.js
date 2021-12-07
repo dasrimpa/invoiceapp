@@ -1,8 +1,8 @@
 import React from "react";
 import { BsFillArchiveFill } from 'react-icons/bs';
+import {FaUserEdit} from 'react-icons/fa';
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-let iconStyles = { color: "Red", fontSize: "1em" };
-class Product extends React.Component {
+class Customer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -11,17 +11,22 @@ class Product extends React.Component {
     this.state.filterText = "";
     this.state.products = [
       {
-        price: '50000',
-        name: 'DELL LAPTOP',
-        productid: '123'
+        address: 'HOWRAH',
+        contactno: '7898767898',
+        name: 'RIMPA DAS',
+        customerid:'1001'
       }, {
-        price: '30000',
-        name: 'HP LAPTOP',
-        productid: '124'
+      
+        address: 'KOLKATA',
+        contactno: '9867543567',
+        name: 'DEBJIT DAS',
+        customerid:'1010'
       }, {
-        price: '70000',
-        name: 'LENOVO LAPTOP',
-        productid: '125',
+       
+        address: 'MANDIRTOLA',
+        contactno: '7076476567',
+        name: 'RIM DAS',
+        customerid:'1034'
       }
     ];
 
@@ -38,15 +43,12 @@ class Product extends React.Component {
     var product = {
       name: "",
       price: "",
-      productid:"",
+      address: "",
+    customerid:"",
     }
     this.state.products.push(product);
     this.setState(this.state.products);
 
-  }
-  handleSubmit(event) {
-    alert('Product Deleted');
-    event.preventDefault();
   }
 
   handleProductTable(evt) {
@@ -69,13 +71,6 @@ var products = this.state.products.slice();
   });
     this.setState({products:newProducts});
   };
-
-  togglePopup() {
-    this.setState(prevState => ({
-      isPopupShown: !prevState.isPopupShown
-    }));
-  }
-  
   render() {
    
     return (
@@ -102,14 +97,16 @@ class ProductTable extends React.Component {
     });
     return (
       <div class="container">
-<h1 class="heading">Product List</h1>
+<h1 class="heading">Customer List</h1>
      
         <table className="table table-bordered">
           <thead>
             <tr>
             <th class="text-center">ID</th>
-              <th class="text-center">Product Name</th>
-              <th class="text-center">Price</th>
+              <th class="text-center">Customer Name</th>
+              <th class="text-center">Address</th>
+              <th class="text-center">Contact No</th>
+              <th class="text-center">Edit Item</th>
               <th class="text-center">Remove Item</th>
             </tr>
           </thead>
@@ -118,11 +115,8 @@ class ProductTable extends React.Component {
             {product}
           </tbody>
         </table>
-        <Link to="/product-add">
-        <button type="button" className="btn btn-success">Add Product</button>
-        </Link>
-        <Link to="/product-edit">
-        <button type="button" class="btn btn-success add">Edit Product</button>
+        <Link to="/customer-add">
+        <button type="button"  className="btn btn-success">Add Customer</button>
         </Link>
       </div>
     );
@@ -142,9 +136,9 @@ class ProductRow extends React.Component {
     return (
       
       <tr className="eachRow">
-        <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-          "type": "productid",
-          value: this.props.product.productid,
+       <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
+          "type": "customerid",
+          value: this.props.product.customerid,
           id: this.props.product.id
         }}/>
         <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
@@ -154,12 +148,22 @@ class ProductRow extends React.Component {
         }}/>
         
         <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-          type: "price",
-          value: this.props.product.price,
+          type: "address",
+          value: this.props.product.address,
           id: this.props.product.id
         }}/>
-        <td className="del-cell" class="text-center" >
-      <BsFillArchiveFill style={iconStyles} onClick={this.onDelEvent.bind(this)} />
+        <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
+          type: "contactno",
+          value: this.props.product.contactno,
+          id: this.props.product.id
+        }}/>
+         <td className="del-cell" class="text-center edit-btn" >
+        <Link to="/customer-edit">
+      <FaUserEdit />
+      </Link>
+        </td>
+        <td className="del-cell" class="text-center">
+      <BsFillArchiveFill class="delete-btn" onClick={this.onDelEvent.bind(this)}/>
         </td>
       </tr>
     );
@@ -172,11 +176,11 @@ class EditableCell extends React.Component {
   render() {
     return (
       <td class="text-center editcell">
-        <input type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate} />
+        <input type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate} class="form-control"/>
       </td>
     );
 
   }
 
 }
-export default Product;
+export default Customer;
