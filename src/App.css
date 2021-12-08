@@ -7,24 +7,23 @@ width: 220px;
 border: none;
 box-shadow: none;
 }
-.customer-form{
-  width: 400px;
-}
 .form-container{
  justify-content: center;
  display: flex;
 }
-button.add{
-  margin-left: 30px;
-}
-button.invoiceadd{
-  margin-left: 300px;
-}
-.edit-btn{
-  justify-content: center;
-  display: flex;
-}
 .delete-btn{
   font-size: 1em;
   color: red;
+}
+
+.wrapper .form-container{
+  width: 500px;
+  height: 340px;
+  background-color: whitesmoke;
+  margin: 20px auto;
+  padding: 20px;   
+}
+
+.wrapper .form-container .btn{
+  width: 100%;   
 }
